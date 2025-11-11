@@ -1,16 +1,31 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 const AddService = () => {
   const { user } = useAuth();
+  const axiosInstance = useAxiosSecure();
   const { register, handleSubmit } = useForm();
-  const [data, setData] = useState("");
+
+  const handleSendData = (data) => {
+    axiosInstance
+      .post("/services", data)
+      .then((res) => {
+        console.log("Response:", res.data);
+        if (res.data.insertedId) {
+          toast.success("Services added successfully");
+        }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+      });
+  };
 
   return (
     <div className="bg-cyan-50 pt-5 pb-20">
       <form
-        onSubmit={handleSubmit((data) => setData(data))}
-        className="w-11/12 md:w-6/12  mx-auto space-y-2 shadow-xl shadow-cyan-600 p-4 rounded-xl"
+        onSubmit={handleSubmit(handleSendData)}
+        className="w-11/12 md:w-6/12  mx-auto space-y-2 shadow-md shadow-cyan-600 p-4 rounded-xl"
       >
         <h2 className="text-center text-2xl font-bold text-cyan-600">
           Add Service
