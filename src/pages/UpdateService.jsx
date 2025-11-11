@@ -1,34 +1,56 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useParams } from "react-router";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-const AddService = () => {
-  const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
-  const { register, handleSubmit } = useForm();
 
-  const handleSendData = (data) => {
+const UpdateService = () => {
+  const [service, setService] = useState("");
+  const { user } = useAuth();
+  const { id } = useParams();
+  const { register, handleSubmit, reset } = useForm();
+  const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    axiosSecure.get(`/service/${id}`).then((data) => {
+      setService(data.data);
+      reset(data.data);
+    });
+  }, [id, axiosSecure, reset]);
+
+  const handleUpdate = (data) => {
+    const changedFields = {};
+
+    // Compare each field
+    for (const key in data) {
+      if (data[key] !== service[key]) {
+        changedFields[key] = data[key];
+      }
+    }
+
+    if (Object.keys(changedFields).length === 0) {
+      toast.error("No fields changed, nothing to update.");
+      return;
+    }
+
     axiosSecure
-      .post("/services", data)
+      .patch(`/service-update?id=${id}`, changedFields)
       .then((res) => {
         console.log("Response:", res.data);
-        if (res.data.insertedId) {
-          toast.success("Services added successfully");
-        }
       })
       .catch((err) => {
         console.error("Error:", err);
       });
   };
-
+  if (!service) return <p className="text-center py-10">Loading...</p>;
   return (
     <div className="bg-cyan-50 pt-5 pb-20">
       <form
-        onSubmit={handleSubmit(handleSendData)}
+        onSubmit={handleSubmit(handleUpdate)}
         className="w-11/12 md:w-6/12  mx-auto space-y-2 shadow-md shadow-cyan-600 p-4 rounded-xl"
       >
         <h2 className="text-center text-2xl font-bold text-cyan-600">
-          Add Service
+          Edit Service
         </h2>
         {/* 1. Service Name */}
         <div>
@@ -38,6 +60,7 @@ const AddService = () => {
             placeholder="Service Name"
             className="w-full input focus:outline-0 focus:border-cyan-600"
             type="text"
+            defaultValue={service.service_name}
           />
         </div>
         {/* 2. Category */}
@@ -46,12 +69,10 @@ const AddService = () => {
           <select
             required
             {...register("category")}
-            defaultValue=""
+            defaultValue={service.category}
             className="select w-full input focus:outline-0 focus:border-cyan-600"
           >
-            <option value="" disabled>
-              Select a Category
-            </option>
+            <option disabled>Select a Category</option>
             <option value="cleaning">Cleaning</option>
             <option value="plumbing">Plumbing</option>
             <option value="repair">Repair</option>
@@ -66,6 +87,7 @@ const AddService = () => {
             placeholder="Price"
             className="w-full input focus:outline-0 focus:border-cyan-600"
             type="number"
+            defaultValue={service.price}
           />
         </div>
         {/* 4. Description */}
@@ -75,6 +97,7 @@ const AddService = () => {
             {...register("description")}
             placeholder="Description"
             className="w-full textarea focus:outline-0 focus:border-cyan-600"
+            defaultValue={service.description}
           />
         </div>
         {/* 5. Photo URL */}
@@ -85,6 +108,7 @@ const AddService = () => {
             placeholder="Image URL"
             className="w-full input focus:outline-0 focus:border-cyan-600"
             type="url"
+            defaultValue={service.image_URL}
           />
         </div>
         {/* 6. Provider Name */}
@@ -95,6 +119,7 @@ const AddService = () => {
             placeholder="Provider Name"
             className="w-full input focus:outline-0 focus:border-cyan-600"
             type="text"
+            defaultValue={service.provider_name}
           />
         </div>
         {/* 7. Email */}
@@ -110,10 +135,14 @@ const AddService = () => {
           />
         </div>
 
-        <input type="submit" className="btn bg-cyan-600 text-white btn-block" />
+        <input
+          type="submit"
+          value={"Update"}
+          className="btn bg-cyan-600 text-white btn-block"
+        />
       </form>
     </div>
   );
 };
 
-export default AddService;
+export default UpdateService;

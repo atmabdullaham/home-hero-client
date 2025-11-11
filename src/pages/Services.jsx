@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import useAxios from "../hooks/useAxios";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Services = () => {
-  const axiosInstance = useAxios();
+  const axiosPublic = useAxiosPublic();
   const [allServices, setAllServices] = useState([]);
   useEffect(() => {
-    axiosInstance.get("/services").then((data) => {
+    axiosPublic.get("/services").then((data) => {
       setAllServices(data.data);
     });
-  }, [axiosInstance]);
+  }, [axiosPublic]);
   console.log(allServices);
   return <div>This is services page {allServices.length}</div>;
 };
