@@ -48,7 +48,7 @@ const MyServices = () => {
 
   return (
     <div className="bg-cyan-50 py-10">
-      <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 w-10/12 mx-auto p-5 ">
+      <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100  w-11/12 lg:w-10/12 mx-auto p-5 ">
         <h2 className="text-cyan-600 text-3xl font-bold text-center pb-8">
           Manage My Services: ({services.length})
         </h2>
@@ -60,7 +60,8 @@ const MyServices = () => {
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
-              <th>Action</th>
+              <th>Provider Name</th>
+              <th className="">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -70,6 +71,7 @@ const MyServices = () => {
                 <td>{service.service_name}</td>
                 <td>{service.category}</td>
                 <td>${service.price}</td>
+                <td>{service.provider_name}</td>
                 <td>
                   <Link
                     to={`/service/${service._id}`}
