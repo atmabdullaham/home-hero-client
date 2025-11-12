@@ -84,7 +84,7 @@ const MyServices = () => {
                     className="btn bg-transparent hover:border-0 border-0 text-red-700"
                   >
                     <MdOutlineDelete size={24} />
-                  </span>{" "}
+                  </span>
                 </td>
               </tr>
             ))}

@@ -4,6 +4,7 @@ import AddService from "../pages/AddService";
 import Home from "../pages/Home";
 import MyBookings from "../pages/MyBookings";
 import MyServices from "../pages/MyServices";
+import ServiceDetails from "../pages/ServiceDetails";
 import Services from "../pages/Services";
 import UpdateService from "../pages/UpdateService";
 import Login from "../pages/auth/Login";
@@ -52,6 +53,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <UpdateService></UpdateService>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/details/:id",
+        element: (
+          <PrivateRoutes>
+            <ServiceDetails></ServiceDetails>
           </PrivateRoutes>
         ),
       },

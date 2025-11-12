@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const ServiceCard = ({ service }) => {
   const {
     category,
@@ -26,9 +28,12 @@ const ServiceCard = ({ service }) => {
 
           <div className="flex items-center justify-between mt-4">
             <span className="text-xl font-bold text-cyan-600">${price}</span>
-            <button className="bg-cyan-600 hover:bg-cyan-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200">
+            <Link
+              to={`/details/${_id}`}
+              className="bg-cyan-600 hover:bg-cyan-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200"
+            >
               Details
-            </button>
+            </Link>
           </div>
         </div>
       </div>
