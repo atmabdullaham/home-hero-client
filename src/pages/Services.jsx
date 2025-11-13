@@ -5,12 +5,27 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 const Services = () => {
   const axiosPublic = useAxiosPublic();
   const [allServices, setAllServices] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axiosPublic.get("/services").then((data) => {
-      setAllServices(data.data);
-    });
+    axiosPublic
+      .get("/services")
+      .then((data) => {
+        setAllServices(data.data);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 100);
+      });
   }, [axiosPublic]);
-  console.log(allServices);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
+        <span className="loading loading-spinner loading-lg text-cyan-600"></span>
+      </div>
+    );
+
   return (
     <div className="w-11/12 mx-auto">
       This is services page {allServices.length}

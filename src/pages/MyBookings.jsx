@@ -7,10 +7,16 @@ const MyBookings = () => {
   const { user } = useAuth();
   const [bookings, setBookigs] = useState();
   const axiosSecure = useAxiosSecure();
+  const [dataLoading, setDataLoading] = useState(true);
   useEffect(() => {
-    axiosSecure.get(`/my-bookings?email=${user.email}`).then((data) => {
-      setBookigs(data.data);
-    });
+    axiosSecure
+      .get(`/my-bookings?email=${user.email}`)
+      .then((data) => {
+        setBookigs(data.data);
+      })
+      .finally(() => {
+        setDataLoading(false);
+      });
   }, [user, axiosSecure]);
   console.log(bookings);
 
@@ -41,6 +47,12 @@ const MyBookings = () => {
       }
     });
   };
+  if (dataLoading)
+    return (
+      <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
+        <span className="loading loading-spinner loading-lg text-cyan-600"></span>
+      </div>
+    );
 
   return (
     <div className="bg-cyan-50 py-10">

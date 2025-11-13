@@ -13,6 +13,7 @@ const ServiceDetails = () => {
   const { register, handleSubmit, reset } = useForm();
   const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(true);
   const navigate = useNavigate();
   const {
     category,
@@ -24,10 +25,15 @@ const ServiceDetails = () => {
     service_name,
   } = service;
   useEffect(() => {
-    axiosSecure.get(`/service/${id}`).then((data) => {
-      setService(data.data);
-      reset();
-    });
+    axiosSecure
+      .get(`/service/${id}`)
+      .then((data) => {
+        setService(data.data);
+        reset();
+      })
+      .finally(() => {
+        setDataLoading(false);
+      });
   }, [id, axiosSecure, reset]);
   const handleModalOpen = () => {
     modalRef.current.showModal();
@@ -49,6 +55,12 @@ const ServiceDetails = () => {
       });
     }
   };
+  if (dataLoading)
+    return (
+      <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
+        <span className="loading loading-spinner loading-lg text-cyan-600"></span>
+      </div>
+    );
   return (
     <div>
       <section className="flex items-center justify-center bg-cyan-50 bg-opacity-20s h-100vh py-10">

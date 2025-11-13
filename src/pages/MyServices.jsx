@@ -8,14 +8,21 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyServices = () => {
   const { user } = useAuth();
-
   const axiosSecure = useAxiosSecure();
+  const [dataLoading, setDataLoading] = useState(true);
 
   const [services, setServices] = useState([]);
   useEffect(() => {
-    axiosSecure.get(`/my-services?email=${user.email}`).then((data) => {
-      setServices(data.data);
-    });
+    axiosSecure
+      .get(`/my-services?email=${user.email}`)
+      .then((data) => {
+        setServices(data.data);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setDataLoading(false);
+        }, 100);
+      });
   }, [user, axiosSecure]);
 
   const handleDelete = (id) => {
@@ -45,6 +52,13 @@ const MyServices = () => {
       }
     });
   };
+
+  if (dataLoading)
+    return (
+      <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
+        <span className="loading loading-spinner loading-lg text-cyan-600"></span>
+      </div>
+    );
 
   return (
     <div className="bg-cyan-50 py-10">
