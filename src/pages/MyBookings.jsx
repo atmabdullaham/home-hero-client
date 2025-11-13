@@ -27,10 +27,10 @@ const MyBookings = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/bookings/${id}`).then((data) => {
           if (data.data.deletedCount > 0) {
-            const updatedService = bookings.filter(
-              (service) => service._id !== id
+            const updatedBookings = bookings.filter(
+              (booking) => booking._id !== id
             );
-            setBookigs(updatedService);
+            setBookigs(updatedBookings);
             Swal.fire({
               title: "Deleted!",
               text: "Your service has been deleted.",
@@ -54,29 +54,26 @@ const MyBookings = () => {
             <tr>
               <th>Sl.</th>
               <th>Name</th>
-              <th>Category</th>
               <th>Price</th>
-              <th>Provider Name</th>
               <th>Booking Date and Time</th>
               <th className="">Action</th>
             </tr>
           </thead>
           <tbody>
-            {bookings?.map((service, i) => (
-              <tr key={service._id}>
+            {bookings?.map((booking, i) => (
+              <tr key={booking._id}>
                 <th>{i + 1}</th>
-                {/* <td>{service.service_name}</td>
-                <td>{service.category}</td>
-                <td>${service.price}</td>
-                <td>{service.provider_name}</td>
+                <td>{booking.service_name}</td>
+                <td>${booking.price}</td>
+                <td>{booking.date_time}</td>
                 <td>
                   <span
-                    onClick={() => handleDelete(service._id)}
+                    onClick={() => handleDelete(booking._id)}
                     className="btn bg-transparent hover:border-0 border-0 text-red-700"
                   >
-                    <MdOutlineDelete size={24} />
+                    Cancel
                   </span>
-                </td> */}
+                </td>
               </tr>
             ))}
           </tbody>
