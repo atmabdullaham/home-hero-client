@@ -63,7 +63,7 @@ const AddService = () => {
         <div>
           <legend className="text-gray-700">Price</legend>
           <input
-            {...register("price")}
+            {...register("price", { valueAsNumber: true })}
             placeholder="Price"
             className="w-full input focus:outline-0 focus:border-cyan-600"
             type="number"

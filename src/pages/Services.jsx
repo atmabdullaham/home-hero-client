@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import PriceRangeFilter from "../components/PriceRangeFilter";
 import ServiceCard from "../components/ServiceCard";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 
@@ -9,24 +10,39 @@ const Services = () => {
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000);
+  const [hightPrice, setHightPrice] = useState();
+  const handlePriceChange = (min, max) => {
+    setMinPrice(min);
+    setMaxPrice(max);
+  };
 
   useEffect(() => {
     const params = {};
 
-    if (category && category !== "all") params.category = category;
+    // Only apply filter when user changes price
+    if (minPrice !== 0 || maxPrice !== 1000) {
+      params.minPrice = minPrice;
+      params.maxPrice = maxPrice;
+    }
+
+    if (category !== "all") params.category = category;
     if (search) params.search = search;
+
     axiosPublic
       .get("/services", { params })
       .then((data) => {
         setAllServices(data.data);
       })
-      .finally(() => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 100);
-      });
-  }, [axiosPublic, category, search]);
+      .finally(() => setLoading(false));
+  }, [axiosPublic, category, search, minPrice, maxPrice]);
 
+  useEffect(() => {
+    const highest = Math.max(...allServices.map((p) => p.price));
+    setHightPrice(highest);
+    console.log(highest);
+  }, []);
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-[calc(100vh-100px)]">
@@ -67,7 +83,9 @@ const Services = () => {
               <option value="electrical">Electrical</option>
             </select>
           </div>
-          <div>Search by Price Range</div>
+          <div>
+            <PriceRangeFilter min={0} max={1000} onChange={handlePriceChange} />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 col-span-10">

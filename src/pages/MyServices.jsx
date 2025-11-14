@@ -64,11 +64,11 @@ const MyServices = () => {
     <div className="bg-cyan-50 py-10">
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100  w-11/12 lg:w-10/12 mx-auto p-5 ">
         <h2 className="text-cyan-600 text-3xl font-bold text-center pb-8">
-          Manage My Services: ({services.length})
+          Manage Services: ({services.length})
         </h2>
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className="bg-cyan-100">
             <tr>
               <th>Sl.</th>
               <th>Name</th>
