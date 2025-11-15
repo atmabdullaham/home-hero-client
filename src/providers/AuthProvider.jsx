@@ -46,11 +46,13 @@ const AuthProvider = ({ children }) => {
   };
 
   // update a user's profile
-  const updateUserProfile = (updatedName, updatedPhoto) => {
-    return updateProfile(auth.currentUser, {
+  const updateUserProfile = async (updatedName, updatedPhoto) => {
+    await updateProfile(auth.currentUser, {
       displayName: updatedName,
       photoURL: updatedPhoto,
     });
+    await auth.currentUser.reload();
+    setUser({ ...auth.currentUser });
   };
 
   // Delete a user

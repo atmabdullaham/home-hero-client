@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
@@ -11,8 +11,15 @@ const Navbar = () => {
   const { user, logOutUser, loading } = useContext(AuthContext);
   const navigate = useNavigate();
   const email = user?.email;
-  const photo = user?.photoURL;
-  const displayName = user?.displayName;
+  const [displayName, setDisplayName] = useState();
+  const [photo, setPhoto] = useState();
+
+  useEffect(() => {
+    const picture = user?.photoURL;
+    setPhoto(picture);
+    const name = user?.displayName;
+    setDisplayName(name);
+  }, [user]);
 
   const handleLogout = () => {
     logOutUser()

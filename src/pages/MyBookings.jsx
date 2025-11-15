@@ -60,36 +60,50 @@ const MyBookings = () => {
         <h2 className="text-cyan-600 text-3xl font-bold text-center pb-8">
           Manage My Bookings: ({bookings?.length})
         </h2>
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Sl.</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Booking Date and Time</th>
-              <th className="">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings?.map((booking, i) => (
-              <tr key={booking._id}>
-                <th>{i + 1}</th>
-                <td>{booking.service_name}</td>
-                <td>${booking.price}</td>
-                <td>{booking.date_time}</td>
-                <td>
-                  <span
-                    onClick={() => handleDelete(booking._id)}
-                    className="btn bg-transparent hover:border-0 border-0 text-red-700"
-                  >
-                    Cancel
-                  </span>
-                </td>
+        <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
+          <table className="table min-w-full divide-y-2 divide-gray-200">
+            {/* head */}
+            <thead class="ltr:text-left rtl:text-right">
+              <tr class="*:font-medium *:text-gray-900">
+                <th>Sl.</th>
+                <th class="px-3 py-2 whitespace-nowrap">Name</th>
+                <th class="px-3 py-2 whitespace-nowrap">Price</th>
+                <th class="px-3 py-2 whitespace-nowrap">
+                  Booking Date and Time
+                </th>
+                <th class="px-3 py-2 whitespace-nowrap">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody className="divide-y divide-gray-200">
+              {bookings?.map((booking, i) => (
+                <tr
+                  key={booking._id}
+                  className="*:text-gray-900 *:first:font-medium"
+                >
+                  <th className="px-3 py-2 whitespace-nowrap">{i + 1}</th>
+                  <td className="px-3 py-2 whitespace-nowrap">
+                    {booking.service_name}
+                  </td>
+                  <td className="px-3 py-2 whitespace-nowrap">
+                    ${booking.price}
+                  </td>
+                  <td className="px-3 py-2 whitespace-nowrap">
+                    {booking.date_time}
+                  </td>
+                  <td className="px-3 py-2 whitespace-nowrap">
+                    <span
+                      onClick={() => handleDelete(booking._id)}
+                      className="btn bg-transparent hover:border-0 border-0 text-red-700"
+                    >
+                      Cancel
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

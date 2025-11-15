@@ -4,6 +4,7 @@ import AddService from "../pages/AddService";
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import MyBookings from "../pages/MyBookings";
+import MyProfile from "../pages/MyProfile";
 import MyServices from "../pages/MyServices";
 import ServiceDetails from "../pages/ServiceDetails";
 import Services from "../pages/Services";
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <ServiceDetails></ServiceDetails>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/my-profile",
+        element: (
+          <PrivateRoutes>
+            <MyProfile></MyProfile>
           </PrivateRoutes>
         ),
       },
