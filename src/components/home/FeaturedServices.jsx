@@ -2,7 +2,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import { use, useEffect, useRef } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router";
-import ServiceCard from "../../components/ServiceCard";
+import ServiceCard from "../ServiceCard";
 
 const FeaturedServices = ({ featuredPromise }) => {
   const ref = useRef(null);

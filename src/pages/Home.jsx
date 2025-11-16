@@ -1,6 +1,7 @@
 import { Suspense } from "react";
-import FeaturedServices from "../contexts/home/FeaturedServices";
-import HeroSection from "../contexts/home/HeroSection";
+import FeaturedServices from "../components/home/FeaturedServices";
+import HeroSection from "../components/home/HeroSection";
+import WhyChooseUs from "../components/home/WhyChooseUs";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
       <Suspense fallback={"Loading..."}>
         <FeaturedServices featuredPromise={featuredPromise}></FeaturedServices>
       </Suspense>
+      <WhyChooseUs></WhyChooseUs>
     </div>
   );
 };
