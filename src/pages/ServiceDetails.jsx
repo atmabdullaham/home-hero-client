@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
+import RatingDisplay from "../components/RatingDisplay";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
@@ -23,7 +24,18 @@ const ServiceDetails = () => {
     price,
     provider_name,
     service_name,
+    reviews,
   } = service;
+  function getAverageRating(reviews) {
+    if (!reviews || reviews.length === 0) return 0;
+
+    const total = reviews.reduce(
+      (sum, review) => sum + Number(review.rating),
+      0
+    );
+    return Number((total / reviews.length).toFixed(1)); // returns 1 decimal
+  }
+  const rating = getAverageRating(reviews);
   useEffect(() => {
     axiosSecure
       .get(`/service/${id}`)
@@ -107,6 +119,19 @@ const ServiceDetails = () => {
                     {category}
                   </span>
                 </div>
+              </div>
+              <div className="ml-auto text-right">
+                <div>
+                  {reviews.slice(0, 2).map((review) => (
+                    <div className="flex gap-2">
+                      <p>{review.comment}</p>
+                      <p>{review.rating}</p>
+                    </div>
+                  ))}
+                </div>
+                <button className="p-2 rounded-md border hover:bg-gray-50">
+                  <RatingDisplay rating={rating}></RatingDisplay>
+                </button>
               </div>
             </div>
 

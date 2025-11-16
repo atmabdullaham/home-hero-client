@@ -98,9 +98,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
-          Home<span className="text-cyan-600">Hero</span>
-        </a>
+        <Link className="text-xl font-bold">
+          <span className="text-cyan-600">Home</span>Hero
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">

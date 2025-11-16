@@ -1,18 +1,23 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { GrUpdate } from "react-icons/gr";
 import { MdOutlineNotInterested, MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router";
-import AuthContext from "../contexts/AuthContext";
+
+import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyProfile = () => {
   const { user, setUser, loading, updateUserProfile, deleteAccount, auth } =
-    useContext(AuthContext);
+    useAuth();
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [currentPhoto, setCurrentPhoto] = useState();
   const [currentDisplayName, setCurrenDisplayName] = useState();
+  const [bookings, setBookigs] = useState();
+  const axiosSecure = useAxiosSecure();
+  const [dataLoading, setDataLoading] = useState(true);
 
   const email = user?.email;
 
@@ -60,6 +65,33 @@ const MyProfile = () => {
         toast.error("Signin again to delete the account");
       });
   };
+  useEffect(() => {
+    user?.email &&
+      axiosSecure
+        .get(`/my-bookings?email=${user.email}`)
+        .then((data) => {
+          setBookigs(data.data);
+        })
+        .finally(() => {
+          setDataLoading(false);
+        });
+  }, [user, axiosSecure]);
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    user?.email &&
+      axiosSecure
+        .get(`/my-services?email=${user.email}`)
+        .then((data) => {
+          setServices(data.data);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setDataLoading(false);
+          }, 100);
+        });
+  }, [user, axiosSecure]);
+  console.log("This is my service cont", services);
+  console.log("This is my bookings count", bookings);
 
   return (
     <div className="grid grid-cols-12 w-11/12 md:w-10/12 mx-auto gap-5 py-4">

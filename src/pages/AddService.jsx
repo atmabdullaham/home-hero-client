@@ -8,8 +8,9 @@ const AddService = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const handleSendData = (data) => {
+    const serviceInfo = { ...data, reviews: [] };
     axiosSecure
-      .post("/services", data)
+      .post("/services", serviceInfo)
       .then((res) => {
         console.log("Response:", res.data);
         if (res.data.insertedId) {
