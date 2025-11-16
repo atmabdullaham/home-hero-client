@@ -20,22 +20,28 @@ const HeroSection = () => {
         <SwiperSlide>
           <BannerSlide
             img={electritianImg}
-            title={"Electrician is available for your service"}
-            subtitle={"We provide best reasonable service for this"}
+            title={"Expert Electrical Repairs & Installations"}
+            subtitle={
+              "From wiring to appliance fixes get fast, safe, and certified electrical service for your home or business."
+            }
           ></BannerSlide>
         </SwiperSlide>
         <SwiperSlide>
           <BannerSlide
             img={plumberImg}
-            title={"Electrician is available for your service"}
-            subtitle={"We provide best reasonable service for this"}
+            title={"Reliable Plumbing Solutions for Every Home"}
+            subtitle={
+              "Leak repair, pipeline installation, drain cleaning and more handled by trusted professional plumbers."
+            }
           ></BannerSlide>
         </SwiperSlide>
         <SwiperSlide>
           <BannerSlide
             img={cleaningImg}
-            title={"Electrician is available for your service"}
-            subtitle={"We provide best reasonable service for this"}
+            title={"Premium Home & Office Cleaning Services"}
+            subtitle={
+              "Deep cleaning, regular maintenance, and eco-friendly cleaning solutions experience a spotless space every time."
+            }
           ></BannerSlide>
         </SwiperSlide>
       </Swiper>
