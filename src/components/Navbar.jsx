@@ -13,6 +13,7 @@ const Navbar = () => {
   const email = user?.email;
   const [displayName, setDisplayName] = useState();
   const [photo, setPhoto] = useState();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
     const picture = user?.photoURL;
@@ -31,6 +32,17 @@ const Navbar = () => {
         toast.error("Logout faild");
       });
   };
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
   return (
     <div className=" bg-base-100 shadow-sm">
       <div className="w-11/12 mx-auto navbar">
@@ -158,6 +170,13 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
+          <input
+            onChange={(e) => handleTheme(e.target.checked)}
+            type="checkbox"
+            defaultChecked={localStorage.getItem("theme") === "dark"}
+            className="toggle"
+          />
+
           {user ? (
             <div className="flex items-center gap-2">
               <div className="dropdown dropdown-end">

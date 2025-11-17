@@ -9,6 +9,7 @@ const FeaturedServices = ({ featuredPromise }) => {
   const isInView = useInView(ref);
   const controls = useAnimation();
   const data = use(featuredPromise);
+  console.log(data.data);
   useEffect(() => {
     if (isInView) {
       controls.start("visible");
@@ -28,7 +29,7 @@ const FeaturedServices = ({ featuredPromise }) => {
         className="text-center pb-10 space-y-2"
       >
         <h2 className="text-3xl font-bold">
-          Our Featured <span className="text-cyan-600">Services</span>
+          Our Top Rated <span className="text-cyan-600">Services</span>
         </h2>
         <p className="text-base font-medium text-gray-600">
           Each listing is designed to be clear and concise, providing customers
@@ -50,7 +51,7 @@ const FeaturedServices = ({ featuredPromise }) => {
         ))}
       </motion.div>
       <div className="flex justify-center pt-10">
-        <Link to={"/services"} className="btn bg-cyan-600 text-white">
+        <Link to={"/services"} className="btn bg-black text-white">
           View all <FaArrowRightLong />
         </Link>
       </div>
