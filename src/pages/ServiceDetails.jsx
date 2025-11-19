@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { FaArrowCircleLeft } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import RatingDisplay from "../components/RatingDisplay";
 import useAuth from "../hooks/useAuth";
@@ -47,8 +48,12 @@ const ServiceDetails = () => {
         setDataLoading(false);
       });
   }, [id, axiosSecure, reset]);
+
   const handleModalOpen = () => {
     modalRef.current.showModal();
+  };
+  const handleModalClose = () => {
+    modalRef.current.close();
   };
 
   const handleBooking = (data) => {
@@ -75,134 +80,153 @@ const ServiceDetails = () => {
     );
   return (
     <div>
-      <section className="flex items-center justify-center bg-cyan-50 bg-opacity-20s h-100vh py-10">
-        <div className="flex w-11/12 md:w-8/12 flex-col md:flex-row p-4 md:p-10 bg-cyan-50 border-cyan-400 rounded-xl border-2 shadow-lg shadow-cyan-600 gap-5">
+      <section className="py-10 bg-cyan-50 dark:bg-gray-800 flex justify-center">
+        <div className="w-11/12 md:w-9/12 lg:w-8/12 bg-white dark:bg-gray-700 border border-cyan-100 rounded-2xl shadow-xl p-4 md:p-4 flex flex-col md:flex-row gap-8 transition-all">
+          {/* Left Image */}
           <img
-            className="w-full md:w-1/2  rounded-2xl"
+            className="w-full md:w-1/2 rounded-2xl object-cover shadow-sm"
             src={image_URL}
-            alt=""
+            alt={service_name}
           />
-          <div className="flex flex-col justify-between">
-            <div className="">
-              <div className="flex gap-2 items-center">
-                <h1 className="text-3xl font-semibold text-black">
-                  {service_name}
-                </h1>
-              </div>
-              <div className="flex w-full justify-between items-center">
-                <div className="justify-start items-center gap-2 flex">
-                  <span className="text-[#191919] text-sm font-normal leading-[21px]">
-                    by:
-                  </span>
-                  <div className="">{provider_name}</div>
-                </div>
-              </div>
 
-              <div className=" mt-5 justify-start items-center gap-3 inline-flex">
-                <div className="justify-start items-center gap-1 flex">
-                  <div className="text-cyan-600 text-2xl font-medium leading-9">
-                    ${price}
-                  </div>
-                </div>
-              </div>
+          {/* Right Section */}
+          <div className="flex flex-col justify-between w-full md:w-1/2">
+            <div>
+              {/* Title */}
+              <h1 className="text-3xl font-bold text-black dark:text-white mb-1">
+                {service_name}
+              </h1>
 
-              <p className="text-justify text-[#7f7f7f] text-sm font-normal mt-4 leading-[21px]">
+              {/* Provider */}
+              <p className="text-gray-600 dark:text-gray-200 text-sm mb-4">
+                by <span className="font-medium">{provider_name}</span>
+              </p>
+
+              {/* Price */}
+              <p className="text-2xl font-semibold text-cyan-600 dark:text-cyan-300 mb-4">
+                ${price}
+              </p>
+
+              {/* Description */}
+              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4 text-justify">
                 {description}
               </p>
 
-              <div className=" mt-6 flex-col justify-start items-start gap-3 inline-flex">
-                <div className="justify-start items-start gap-1.5 inline-flex">
-                  <span className="text-[#191919] text-sm font-medium leading-[21px]">
-                    Category:
-                  </span>
-                  <span className="text-[#7f7f7f] text-sm font-normal leading-[21px]">
-                    {category}
-                  </span>
-                </div>
+              {/* Category */}
+              <p className="text-sm mb-4">
+                <span className="font-semibold text-gray-800 dark:text-white">
+                  Category:{" "}
+                </span>
+                <span className="text-gray-600 dark:text-gray-300">
+                  {category}
+                </span>
+              </p>
+
+              {/* Reviews */}
+              <div className="space-y-2 bg-gray-50 dark:bg-gray-600 p-3 rounded-lg shadow-sm">
+                {reviews.slice(0, 2).map((review, i) => (
+                  <div key={i} className="flex justify-between text-sm">
+                    <p className="text-gray-700 dark:text-gray-300">
+                      {review.comment}
+                    </p>
+                    <p className="font-semibold text-cyan-600 dark:text-cyan-300">
+                      ★ {review.rating}
+                    </p>
+                  </div>
+                ))}
               </div>
-              <div className="ml-auto text-right">
-                <div>
-                  {reviews.slice(0, 2).map((review) => (
-                    <div className="flex gap-2">
-                      <p>{review.comment}</p>
-                      <p>{review.rating}</p>
-                    </div>
-                  ))}
-                </div>
-                <button className="p-2 rounded-md border hover:bg-gray-50">
-                  <RatingDisplay rating={rating}></RatingDisplay>
-                </button>
-              </div>
+
+              {/* Rating Button */}
+              <button className="mt-4 p-2 rounded-lg border shadow-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                <RatingDisplay rating={rating} />
+              </button>
             </div>
 
-            <button
-              onClick={handleModalOpen}
-              className="btn bg-cyan-600 text-white btn-block"
-            >
-              Book now
-            </button>
+            {/* Book Now Button */}
+            <div className="flex">
+              <button
+                onClick={handleModalOpen}
+                className="btn bg-cyan-600 hover:bg-cyan-700 text-white grow mt-6"
+              >
+                Book Now
+              </button>
+              <button className="btn bg-transparent text-black border-0 mt-6">
+                <FaArrowCircleLeft size={30} />
+              </button>
+            </div>
           </div>
         </div>
       </section>
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
 
+      {/* Modal */}
       <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <form
             onSubmit={handleSubmit(handleBooking)}
-            className="w-full  mx-auto space-y-2 shadow-md shadow-cyan-600 p-4 rounded-xl"
+            className="space-y-4 p-5 shadow-md border border-cyan-200 rounded-xl"
           >
-            {/* 1. Service Name */}
+            {/* Service Name */}
             <div>
-              <legend className="text-gray-700">Service Name</legend>
+              <label className="text-gray-700 dark:text-gray-200">
+                Service Name
+              </label>
               <input
                 {...register("service_name")}
-                placeholder="Service Name"
-                className="w-full input focus:outline-0 focus:border-cyan-600"
                 type="text"
                 defaultValue={service.service_name}
+                className="input w-full focus:border-cyan-600"
               />
             </div>
-            {/* 2. Price */}
+
+            {/* Price */}
             <div>
-              <legend className="text-gray-700">Price</legend>
+              <label className="text-gray-700 dark:text-gray-200">Price</label>
               <input
                 {...register("price")}
-                placeholder="Price"
-                className="w-full input focus:outline-0 focus:border-cyan-600"
                 type="number"
                 defaultValue={service.price}
+                className="input w-full focus:border-cyan-600"
               />
             </div>
-            {/* 3. Date and time */}
+
+            {/* Date */}
             <div>
-              <legend className="text-gray-700">Date and time</legend>
+              <label className="text-gray-700 dark:text-gray-200">
+                Date & Time
+              </label>
               <input
                 {...register("date_time")}
                 required
                 type="datetime-local"
-                className="input w-full textarea focus:outline-0 focus:border-cyan-600"
+                className="input w-full focus:border-cyan-600"
               />
             </div>
 
-            {/* 4. Email */}
+            {/* Email */}
             <div>
-              <legend className="text-gray-700">Email</legend>
+              <label className="text-gray-700 dark:text-gray-200">Email</label>
               <input
                 {...register("email")}
-                placeholder="Email"
-                className="w-full input focus:outline-0 focus:border-cyan-600"
                 type="email"
                 defaultValue={user?.email}
                 readOnly
+                className="input w-full focus:border-cyan-600 bg-gray-100 dark:bg-gray-600"
               />
             </div>
 
-            <input
-              type="submit"
-              value={loading ? "Processing..." : "Confirm Booking"}
-              className="btn bg-cyan-600 text-white btn-block"
-            />
+            <div className="flex">
+              <input
+                type="submit"
+                value={loading ? "Processing..." : "Confirm Booking"}
+                className="btn bg-cyan-600 hover:bg-cyan-700 text-white w-1/2"
+              />
+              <input
+                onClick={handleModalClose}
+                type="button"
+                value="Cancel"
+                className="btn bg-transparent border border-red-600 hover:bg-red-700 hover:text-white text-red-600 w-1/2"
+              />
+            </div>
           </form>
         </div>
       </dialog>
