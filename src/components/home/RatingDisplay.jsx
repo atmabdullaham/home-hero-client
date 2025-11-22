@@ -11,7 +11,9 @@ const RatingDisplay = ({ rating }) => {
         readOnly
         fractions={10}
       />
-      <span className="text-sm text-gray-600">{rating?.toFixed(1)}</span>
+      <span className="text-sm text-gray-600 dark:text-white">
+        {rating?.toFixed(1)}
+      </span>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router";
 import ServiceCard from "../ServiceCard";
 
-const FeaturedServices = ({ featuredPromise }) => {
+const TopRatedServices = ({ featuredPromise }) => {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const controls = useAnimation();
@@ -16,7 +16,7 @@ const FeaturedServices = ({ featuredPromise }) => {
     }
   }, [isInView, controls]);
   return (
-    <div className="w-11/12 lg:w-9/12 mx-auto py-16">
+    <div className="w-11/12 lg:w-9/12 mx-auto  py-10 md:py-16">
       <motion.div
         ref={ref}
         variants={{
@@ -26,12 +26,12 @@ const FeaturedServices = ({ featuredPromise }) => {
         initial="hidden"
         animate={controls}
         transition={{ duration: 0.7 }}
-        className="text-center pb-10 space-y-2"
+        className="text-start md:text-center pb-5 md:pb-10 space-y-2"
       >
-        <h2 className="text-3xl font-bold">
-          Our Top Rated <span className="text-cyan-600">Services</span>
+        <h2 className="text-2xl md:text-3xl font-bold">
+          Top Rated <span className="text-cyan-600">Services</span>
         </h2>
-        <p className="text-base font-medium text-gray-600">
+        <p className="text-base md:font-medium text-gray-600">
           Each listing is designed to be clear and concise, providing customers
         </p>
       </motion.div>
@@ -59,4 +59,4 @@ const FeaturedServices = ({ featuredPromise }) => {
   );
 };
 
-export default FeaturedServices;
+export default TopRatedServices;

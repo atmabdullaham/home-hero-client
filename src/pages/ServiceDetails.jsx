@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import RatingDisplay from "../components/RatingDisplay";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -81,7 +81,7 @@ const ServiceDetails = () => {
   return (
     <div>
       <section className="py-10 bg-cyan-50 dark:bg-gray-800 flex justify-center">
-        <div className="w-11/12 md:w-9/12 lg:w-8/12 bg-white dark:bg-gray-700 border border-cyan-100 rounded-2xl shadow-xl p-4 md:p-4 flex flex-col md:flex-row gap-8 transition-all">
+        <div className="w-11/12  lg:w-8/12 bg-white dark:bg-gray-700 border border-cyan-100 rounded-2xl shadow-xl p-4 md:p-4 flex flex-col md:flex-row gap-8 transition-all">
           {/* Left Image */}
           <img
             className="w-full md:w-1/2 rounded-2xl object-cover shadow-sm"
@@ -93,7 +93,7 @@ const ServiceDetails = () => {
           <div className="flex flex-col justify-between w-full md:w-1/2">
             <div>
               {/* Title */}
-              <h1 className="text-3xl font-bold text-black dark:text-white mb-1">
+              <h1 className="text-2xl md:text-3xl font-bold text-black dark:text-white mb-1">
                 {service_name}
               </h1>
 
@@ -150,9 +150,12 @@ const ServiceDetails = () => {
               >
                 Book Now
               </button>
-              <button className="btn bg-transparent text-black border-0 mt-6">
+              <Link
+                to={"/services"}
+                className="btn bg-transparent text-black border-0 mt-6"
+              >
                 <FaArrowCircleLeft size={30} />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -20,8 +20,11 @@ const WhyChooseUs = () => {
     }
   }, [isInView, controls]);
   return (
-    <section className="bg-slate-50 py-12">
-      <div className="max-w-6xl mx-auto px-4">
+    <section
+      className="bg-linear-to-b from-cyan-50 to-blue-100 
+dark:from-gray-900 dark:to-gray-800 py-10 md:py-16"
+    >
+      <div className="w-11/12 mx-auto">
         <motion.div
           ref={ref}
           variants={{
@@ -31,12 +34,12 @@ const WhyChooseUs = () => {
           initial="hidden"
           animate={controls}
           transition={{ duration: 0.7 }}
-          className="text-center pb-10 space-y-2"
+          className="text-start md:text-center pb-5 md:pb-10 space-y-2"
         >
-          <h2 className="text-3xl font-bold">
+          <h2 className="text-2xl md:text-3xl font-bold">
             Why <span className="text-cyan-600">Choose Us</span>
           </h2>
-          <p className="text-base font-medium text-gray-600">
+          <p className="text-base md:font-medium text-gray-600">
             Each listing is designed to be clear and concise, providing
             customers
           </p>
@@ -54,10 +57,10 @@ const WhyChooseUs = () => {
             variants={cardVariant}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200, damping: 12 }}
-            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg duration-200 text-center"
+            className="bg-base-100 p-6 rounded-xl shadow-md hover:shadow-lg duration-200 text-center "
           >
             <MdOutlineEventAvailable className="text-cyan-600 text-5xl mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-slate-800 mb-2">
+            <h3 className="text-xl font-semibold text-slate-800 dark:text-gray-300 mb-2">
               Easy & Fast Booking
             </h3>
             <p className="text-slate-600">
@@ -71,10 +74,10 @@ const WhyChooseUs = () => {
             variants={cardVariant}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200, damping: 12 }}
-            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg duration-200 text-center"
+            className="bg-base-100 p-6 rounded-xl shadow-md hover:shadow-lg duration-200 text-center"
           >
             <FaUserCheck className="text-cyan-600 text-5xl mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-slate-800 mb-2">
+            <h3 className="text-xl font-semibold text-slate-800 mb-2 dark:text-gray-300">
               Trusted Service Providers
             </h3>
             <p className="text-slate-600">
@@ -88,10 +91,10 @@ const WhyChooseUs = () => {
             variants={cardVariant}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200, damping: 12 }}
-            className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg duration-200 text-center"
+            className="bg-base-100 p-6 rounded-xl shadow-md hover:shadow-lg duration-200 text-center"
           >
             <AiOutlineSafety className="text-cyan-600 text-5xl mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-slate-800 mb-2">
+            <h3 className="text-xl font-semibold text-slate-800 mb-2 dark:text-gray-300">
               Transparent & Reliable
             </h3>
             <p className="text-slate-600">
