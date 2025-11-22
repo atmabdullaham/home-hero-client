@@ -80,82 +80,81 @@ const ServiceDetails = () => {
     );
   return (
     <div>
-      <section className="py-10 bg-cyan-50 dark:bg-gray-800 flex justify-center">
-        <div className="w-11/12  lg:w-8/12 bg-white dark:bg-gray-700 border border-cyan-100 rounded-2xl shadow-xl p-4 md:p-4 flex flex-col md:flex-row gap-8 transition-all">
+      <section className="py-5 md:py-10 bg-cyan-50 dark:bg-gray-800 flex justify-center">
+        <div className="w-11/12 lg:w-8/12 bg-white dark:bg-gray-700 border border-cyan-200 rounded-2xl shadow-xl p-4 md:p-8 flex flex-col lg:flex-row gap-8 transition-all">
           {/* Left Image */}
           <img
-            className="w-full md:w-1/2 rounded-2xl object-cover shadow-sm"
+            className="w-full lg:w-1/2 rounded-2xl object-cover shadow-sm"
             src={image_URL}
             alt={service_name}
           />
 
           {/* Right Section */}
-          <div className="flex flex-col justify-between w-full md:w-1/2">
-            <div>
+          <div className="flex flex-col justify-between w-full lg:w-1/2 py-2">
+            <div className="space-y-3">
               {/* Title */}
-              <h1 className="text-2xl md:text-3xl font-bold text-black dark:text-white mb-1">
-                {service_name}
-              </h1>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-black dark:text-white mb-1">
+                  {service_name}
+                </h1>
 
-              {/* Provider */}
-              <p className="text-gray-600 dark:text-gray-200 text-sm mb-4">
-                by <span className="font-medium">{provider_name}</span>
-              </p>
+                {/* Provider */}
+                <p className="text-gray-600 dark:text-gray-200 text-sm ">
+                  by: <span className="font-medium">{provider_name}</span>
+                </p>
+              </div>
 
               {/* Price */}
-              <p className="text-2xl font-semibold text-cyan-600 dark:text-cyan-300 mb-4">
+              <p className="text-2xl font-semibold text-cyan-600 dark:text-cyan-300 ">
                 ${price}
               </p>
 
               {/* Description */}
-              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4 text-justify">
+              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed  text-justify">
                 {description}
               </p>
-
-              {/* Category */}
-              <p className="text-sm mb-4">
-                <span className="font-semibold text-gray-800 dark:text-white">
-                  Category:{" "}
-                </span>
-                <span className="text-gray-600 dark:text-gray-300">
-                  {category}
-                </span>
-              </p>
-
+              {/* Rating Button */}
+              <button>
+                <RatingDisplay rating={rating} />
+              </button>
               {/* Reviews */}
-              <div className="space-y-2 bg-gray-50 dark:bg-gray-600 p-3 rounded-lg shadow-sm">
+              <div className="space-y-2 bg-cyan-50 dark:bg-gray-600 p-2 rounded-sm w-fit">
                 {reviews.slice(0, 2).map((review, i) => (
                   <div key={i} className="flex justify-between text-sm">
                     <p className="text-gray-700 dark:text-gray-300">
                       {review.comment}
+
+                      <span className="pl-4 font-semibold text-cyan-600 dark:text-cyan-300">
+                        ★ {review.rating}
+                      </span>
                     </p>
-                    <p className="font-semibold text-cyan-600 dark:text-cyan-300">
-                      ★ {review.rating}
-                    </p>
+                    <p></p>
                   </div>
                 ))}
               </div>
-
-              {/* Rating Button */}
-              <button className="mt-4 p-2 rounded-lg border shadow-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition">
-                <RatingDisplay rating={rating} />
-              </button>
+              {/* Category */}
+              <p className="text-gray-600 dark:text-gray-200 text-sm">
+                Category:{" "}
+                <span className="font-medium">
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </span>
+              </p>
             </div>
 
             {/* Book Now Button */}
-            <div className="flex">
-              <button
-                onClick={handleModalOpen}
-                className="btn bg-cyan-600 hover:bg-cyan-700 text-white grow mt-6"
-              >
-                Book Now
-              </button>
+            <div className="flex mt-6">
               <Link
                 to={"/services"}
-                className="btn bg-transparent text-black border-0 mt-6"
+                className="btn bg-transparent  text-black dark:text-white border-0 "
               >
                 <FaArrowCircleLeft size={30} />
               </Link>
+              <button
+                onClick={handleModalOpen}
+                className="btn bg-cyan-600 hover:bg-cyan-700 text-white grow "
+              >
+                Book Now
+              </button>
             </div>
           </div>
         </div>
